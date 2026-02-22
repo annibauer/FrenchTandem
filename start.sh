@@ -9,8 +9,6 @@ echo "$PWD" | pbcopy
 cd backend || exit
 # activate virtual environment
 source ./venv/bin/activate
-# apply migrations
-python manage.py migrate
 # run backend in background
 python manage.py runserver &
 BACKEND_PID=$!
@@ -19,7 +17,6 @@ echo "Django backend started with PID $BACKEND_PID"
 cd ..
 echo "Starting React frontend..."
 cd frontend || exit
-npm install
 npm start &
 FRONTEND_PID=$!
 
