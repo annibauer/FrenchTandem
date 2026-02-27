@@ -3,6 +3,17 @@
 # Start React + Django app
 # ------------------------
 
+cd backend || exit
+# activate virtual environment
+ls
+source ./venv/bin/activate
+# apply migrations
+python manage.py migrate
+
+cd ..
+cd frontend || exit
+npm install
+
 echo "Starting Django backend..."
 echo "$PWD" | pbcopy
 # go to backend folder
