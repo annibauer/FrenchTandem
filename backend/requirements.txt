@@ -7,3 +7,4 @@ whitenoise==6.11.0
 dj-database-url==3.0.1
 python-dotenv==1.2.1
 openai==2.21.0
+django-cors-headers>=4.3
