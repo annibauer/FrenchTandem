@@ -81,7 +81,7 @@ ROOT_URLCONF = "config.urls"
 TEMPLATES = [
     {
         "BACKEND": "django.template.backends.django.DjangoTemplates",
-        "DIRS": [],
+        "DIRS": [BASE_DIR / "frontend_build"],
         "APP_DIRS": True,
         "OPTIONS": {
             "context_processors": [
@@ -164,3 +164,8 @@ CORS_ALLOWED_ORIGINS = [
 DEBUG = False
 
 ALLOWED_HOSTS = ["frenchtandem.onrender.com"]
+
+
+STATICFILES_DIRS = [
+    BASE_DIR / "frontend_build/static",
+]
