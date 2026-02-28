@@ -160,3 +160,7 @@ CSRF_TRUSTED_ORIGINS = [
 CORS_ALLOWED_ORIGINS = [
     "http://localhost:3000",
 ]
+
+DEBUG = False
+
+ALLOWED_HOSTS = ["frenchtandem.onrender.com"]
