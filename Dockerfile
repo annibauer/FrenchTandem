@@ -28,8 +28,6 @@ COPY backend/ .
 # Copy React build output into Django
 COPY --from=frontend /app/frontend/build ./frontend_build
 
-RUN npx update-browserslist-db@latest
-
 # Collect static files
 RUN python manage.py collectstatic --noinput
 
