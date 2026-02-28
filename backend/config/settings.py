@@ -163,7 +163,7 @@ CORS_ALLOWED_ORIGINS = [
 
 DEBUG = False
 
-ALLOWED_HOSTS = ["frenchtandem.onrender.com"]
+ALLOWED_HOSTS = ["frenchtandem.onrender.com", "localhost", "127.0.0.1"]
 
 
 STATICFILES_DIRS = [

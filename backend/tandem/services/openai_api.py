@@ -17,6 +17,7 @@ def openai_request(user_message):
         load_dotenv(os.path.join(BASE_DIR, '.env'))
         
         OPENAI_API_KEY = os.getenv("OPENAI_API_KEY")
+        print(OPENAI_API_KEY)
     
         url = "https://api.openai.com/v1/chat/completions"
         payload = json.dumps({
