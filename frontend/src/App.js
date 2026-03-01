@@ -50,8 +50,7 @@ function App() {
     setLoading(true);
   
     try {
-      const apiUrl = process.env.REACT_APP_API_URL;
-      const res = await axios.post(apiUrl + "/api/chat/", {
+      const res = await axios.post("/api/chat/", {
         message: trimmed,
       });
   
@@ -74,8 +73,7 @@ function App() {
 
   const handleLoadAll = async () => {
     try {
-      const apiUrl = process.env.REACT_APP_API_URL;
-      const res = await axios.get(apiUrl + "/api/load_sessions/");
+      const res = await axios.get("/api/load_sessions/");
 
       // Replace with full chat history from backend
       const fullHistory = res.data.history.map((msg) => ({
@@ -95,8 +93,7 @@ function App() {
 
   const handleLoadPreviousSession = async () => {
     try {
-      const apiUrl = process.env.REACT_APP_API_URL;
-      const res = await axios.get(apiUrl + "/api/load_previous_sessions/");
+      const res = await axios.get("/api/load_previous_sessions/");
 
       // Replace with full chat history from backend
       const fullHistory = res.data.history.map((msg) => ({
