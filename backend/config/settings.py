@@ -154,11 +154,13 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 # For CSRF protection (Django 4+)
 CSRF_TRUSTED_ORIGINS = [
     "http://localhost:3000",
+    "https://frenchtandem.onrender.com"
 ]
 
 # For CORS (requires django-cors-headers)
 CORS_ALLOWED_ORIGINS = [
     "http://localhost:3000",
+    "https://frenchtandem.onrender.com"
 ]
 
 DEBUG = False
