@@ -28,7 +28,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = "django-insecure-g^8h%0zvghu2wr+gmr(r)%d+ewse)kx_jyf4*t735f$qpp@b!k"
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = []
 
@@ -153,13 +153,13 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
 # For CSRF protection (Django 4+)
 CSRF_TRUSTED_ORIGINS = [
-    "http://localhost:3000",
+    "https://localhost:3000",
     "https://frenchtandem.onrender.com"
 ]
 
 # For CORS (requires django-cors-headers)
 CORS_ALLOWED_ORIGINS = [
-    "http://localhost:3000",
+    "https://localhost:3000",
     "https://frenchtandem.onrender.com"
 ]
 
