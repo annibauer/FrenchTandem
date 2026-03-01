@@ -47,4 +47,4 @@ def openai_request(user_message):
 
         reply= data["choices"][0]["message"]["content"]
         
-        return reply.
+        return reply
