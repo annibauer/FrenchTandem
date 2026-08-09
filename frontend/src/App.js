@@ -34,6 +34,12 @@ const rolePrefix = {
 }
 
 
+const normalizeHistory = (history = []) =>
+  history.map((msg) => ({
+    role: msg.role,
+    content: msg.content,
+  }));
+
 function App() {
   const [input, setInput] = useState("");
   const [chat, setChat] = useState([]); // chat history
@@ -42,29 +48,22 @@ function App() {
   const handleSend = async () => {
     const trimmed = input.trim();
     if (!trimmed) return;
-  
-    // Optimistic update (optional)
+
     const newChat = [...chat, { role: "user", content: trimmed }];
     setChat(newChat);
     setInput("");
     setLoading(true);
-  
+
     try {
       const res = await axios.post("/api/chat/", {
         message: trimmed,
       });
-  
-      // Replace with full chat history from backend
-      const fullHistory = res.data.history.map((msg) => ({
-        role: msg.role,
-        content: msg.content,
-      }));
-  
-      setChat(fullHistory);
+
+      setChat(normalizeHistory(res.data.history));
     } catch (err) {
       setChat([
         ...newChat,
-        { role: "assistant", content: "❌ Erreur lors de l'envoi du message. "  + err},
+        { role: "assistant", content: `❌ Erreur lors de l'envoi du message. ${err}` },
       ]);
     } finally {
       setLoading(false);
@@ -74,17 +73,10 @@ function App() {
   const handleLoadAll = async () => {
     try {
       const res = await axios.get("/api/load_sessions/");
-
-      // Replace with full chat history from backend
-      const fullHistory = res.data.history.map((msg) => ({
-        role: msg.role,
-        content: msg.content,
-      }));
-  
-      setChat(fullHistory);
+      setChat(normalizeHistory(res.data.history));
     } catch (err) {
       setChat([
-        { role: "assistant", content: "❌ Error Loading Messages. "  + err},
+        { role: "assistant", content: `❌ Error Loading Messages. ${err}` },
       ]);
     } finally {
       setLoading(false);
@@ -94,17 +86,10 @@ function App() {
   const handleLoadPreviousSession = async () => {
     try {
       const res = await axios.get("/api/load_previous_sessions/");
-
-      // Replace with full chat history from backend
-      const fullHistory = res.data.history.map((msg) => ({
-        role: msg.role,
-        content: msg.content,
-      }));
-  
-      setChat(fullHistory);
+      setChat(normalizeHistory(res.data.history));
     } catch (err) {
       setChat([
-        { role: "assistant", content: "❌ Error Loading Messages. "  + err},
+        { role: "assistant", content: `❌ Error Loading Messages. ${err}` },
       ]);
     } finally {
       setLoading(false);

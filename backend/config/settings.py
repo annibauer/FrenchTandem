@@ -12,25 +12,27 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 
 from pathlib import Path
 import os
+from dotenv import load_dotenv
 
-
-
-
-# Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
-
-
+load_dotenv(BASE_DIR / ".env")
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
 
-# SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = "django-insecure-g^8h%0zvghu2wr+gmr(r)%d+ewse)kx_jyf4*t735f$qpp@b!k"
+SECRET_KEY = os.getenv("DJANGO_SECRET_KEY", "dev-only-secret-key")
+DEBUG = os.getenv("DEBUG", "True").lower() in {"1", "true", "yes", "on"}
 
-# SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+default_hosts = ["localhost", "127.0.0.1"]
+configured_hosts = os.getenv("ALLOWED_HOSTS", "")
+if configured_hosts:
+    default_hosts = [host.strip() for host in configured_hosts.split(",") if host.strip()]
 
-ALLOWED_HOSTS = []
+render_host = os.getenv("RENDER_HOST")
+if render_host and render_host not in default_hosts:
+    default_hosts.append(render_host)
+
+ALLOWED_HOSTS = default_hosts
 
 LOGGING = {
     'version': 1,
@@ -153,21 +155,27 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
 # For CSRF protection (Django 4+)
 CSRF_TRUSTED_ORIGINS = [
+    "http://localhost:3000",
+    "http://127.0.0.1:3000",
     "https://localhost:3000",
-    "https://frenchtandem.onrender.com"
+    "https://127.0.0.1:3000",
 ]
+
+render_host = os.getenv("RENDER_HOST")
+if render_host:
+    CSRF_TRUSTED_ORIGINS.append(f"https://{render_host}")
 
 # For CORS (requires django-cors-headers)
 CORS_ALLOWED_ORIGINS = [
+    "http://localhost:3000",
+    "http://127.0.0.1:3000",
     "https://localhost:3000",
-    "https://frenchtandem.onrender.com"
+    "https://127.0.0.1:3000",
 ]
 
-DEBUG = False
+render_host = os.getenv("RENDER_HOST")
+if render_host:
+    CORS_ALLOWED_ORIGINS.append(f"https://{render_host}")
 
-ALLOWED_HOSTS = ["frenchtandem.onrender.com", "localhost", "127.0.0.1"]
-
-
-STATICFILES_DIRS = [
-    BASE_DIR / "frontend_build/static",
-]
+static_dir = BASE_DIR / "frontend_build" / "static"
+STATICFILES_DIRS = [static_dir] if static_dir.exists() else []

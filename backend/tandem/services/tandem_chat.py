@@ -12,6 +12,7 @@ def tandem_chat(request):
         return Response({"error": "No message provided"}, status=400)
     
     try:
+        print("User message:", user_message)
         reply = openai_request(user_message)
         analyze_reply(reply, user_message, session_id)
         chat_history = get_messages_current_session(session_id)
