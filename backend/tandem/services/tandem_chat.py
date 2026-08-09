@@ -16,9 +16,9 @@ def tandem_chat(request):
         reply = openai_request(user_message)
         analyze_reply(reply, user_message, session_id)
         chat_history = get_messages_current_session(session_id)
-         
 
     except Exception as e:
-        chat_history = []
-        
+        print("OpenAI/Tandem error:", repr(e))
+        raise
+
     return chat_history

@@ -36,6 +36,8 @@ def openai_request(user_message):
     }
 
     response = requests.post(url, headers=headers, data=payload, timeout=30)
+    print("OpenAI status:", response.status_code)
+    print("OpenAI response body:", response.text)
     response.raise_for_status()
     data = response.json()
 
